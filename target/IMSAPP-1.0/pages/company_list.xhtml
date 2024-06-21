@@ -1,0 +1,283 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" lang="en" data-layout="horizontal"
+      data-topbar="light" data-sidebar="dark" data-sidebar-size="" data-sidebar-image="none" data-preloader="enable"
+      data-sidebar-visibility="show" data-layout-style="default" data-bs-theme="light" data-layout-width="fluid"
+      data-layout-position="fixed" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Company List | IMS</title>
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        </link>
+
+        <!-- jsvectormap css -->
+        <link href="../assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css">
+        </link>
+
+        <!-- gridjs css -->
+        <link rel="stylesheet" href="../assets/libs/gridjs/theme/mermaid.min.css">
+        </link>
+
+        <!-- Layout config Js -->
+        <script src="../assets/js/layout.js"></script>
+        <!-- Bootstrap Css -->
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- Icons Css -->
+        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- App Css-->
+        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- custom Css-->
+        <link href="../assets/css/custom.min.css" rel="stylesheet" type="text/css">
+        </link>
+
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{navigationCDI.checkStudent()}"/>
+        </f:metadata>
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+            <ui:include src="/component/header.xhtml">
+                <ui:param name="username" value="#{session.getAttribute('uname')}" />
+                <ui:param name="role" value="Student" />
+                <ui:param name="navItems" value="#{cdb.usernavItems}" />
+            </ui:include>
+            <!-- ========== App Menu ========== -->
+            <!-- Left Sidebar End -->
+            <!-- Vertical Overlay-->
+            <div class="vertical-overlay"></div>
+
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
+                <div class="page-content">
+                    <div class="container-fluid">
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-sm-0">Companies List</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form>
+                                            <div class="row g-3">
+                                                <div class="col-lg-5 col-sm-6">
+                                                    <div class="search-box">
+                                                        <input type="text" class="form-control search bg-light border-light"
+                                                               id="searchCompany"
+                                                               placeholder="Search for company, industry type..."></input>
+                                                        <i class="ri-search-line search-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-3 col-sm-6">
+                                                    <input type="text" class="form-control bg-light border-light"
+                                                           id="datepicker" data-date-format="d M, Y"
+                                                           placeholder="Select date"></input>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-2 col-sm-4">
+                                                    <div class="input-light">
+                                                        <select class="form-control" name="choices-single-default"
+                                                                id="idType">
+                                                            <option value="all" selected="true">All</option>
+                                                            <option value="Full Time">Full Time</option>
+                                                            <option value="Part Time">Part Time</option>
+                                                            <option value="Intership">Intership</option>
+                                                            <option value="Freelance">Freelance</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+
+                                                <div class="col-lg-2 col-sm-4">
+                                                    <button type="button" class="btn btn-success w-100"
+                                                            onclick="filterData();">
+                                                        <i class="ri-equalizer-fill me-1 align-bottom"></i> Filters
+                                                    </button>
+                                                </div>
+                                                <!--end col-->
+                                            </div>
+                                            <!--end row-->
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <h:panelGroup layout="grid" styleClass="row job-list-row">
+                                    <ui:repeat value="#{cdb.companylist}" var="company">
+                                        <div class="col-lg-4">
+                                            <div class="card companiesList-card">
+                                                <div class="card-body">
+                                                    <div class="avatar-sm mx-auto">
+                                                        <div class="avatar-title bg-light rounded-circle">
+
+                                                            <i
+                                                                class="mdi mdi-alpha-#{company.cname.toLowerCase().charAt(0)}-circle align-middle text-primary fs-1"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <h5 class="mt-3 company-name">#{company.cname}</h5>
+                                                        <p class="text-muted industry-type">#{company.companyDetails}</p>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button"
+                                                                class="btn btn-soft-primary w-100 viewcompany-list"
+                                                                data-name="#{company.cname}" data-email="#{company.email}"
+                                                                data-companyDetails="#{company.companyDetails}"
+                                                                data-address="#{company.address}"
+                                                                data-contact="#{company.contactDetails}">
+                                                            Show detail
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ui:repeat>
+                                </h:panelGroup>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card" id="company-overview">
+                                    <ui:repeat value="#{cdb.companylist}" var="company" begin="0" end="0">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center justify-content-start gap-4">
+                                                <div class="avatar-md mb-3">
+                                                    <div class="avatar-title bg-light rounded">
+                                                        <i class="ri-building-2-fill align-middle text-primary fs-22"></i>
+                                                    </div>
+                                                </div>
+
+                                                <div class="">
+                                                    <h5 class="overview-companyname">#{company.cname}</h5>
+                                                    <p class="text-muted overview-industryType">#{company.companyDetails}</p>
+                                                </div>
+                                            </div> 
+                                            <h6 class="text-muted text-uppercase fw-semibold mb-3">Information</h6>
+                                            <p class="text-muted mb-4 overview-companyaddress" id="c-add">#{company.address}</p>
+
+                                            <div class="table-responsive table-card">
+                                                <table class="table table-borderless mb-5">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="fw-medium" scope="row">Industry Type</td>
+                                                            <td class="overview-industryType">#{company.companyDetails}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="fw-medium" scope="row">Employee</td>
+                                                            <td class="overview-employee">23</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="fw-medium" scope="row">Vacancy</td>
+                                                            <td class="overview-vacancy">17</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="fw-medium" scope="row">Website</td>
+                                                            <td>
+                                                                <a href="javascript:void(0);"
+                                                                   class="link-primary text-decoration-underline overview-website">www.syntycesolution.com</a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="fw-medium" scope="row">Contact Email</td>
+                                                            <td class="overview-email">www.#{company.cname}.com</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="hstack gap-3">
+                                                <button type="button" class="btn btn-soft-success custom-toggle w-100"
+                                                        data-bs-toggle="button">
+                                                    <span class="icon-on">
+                                                        <i class="ri-add-line align-bottom me-1"></i>
+                                                        Follow
+                                                    </span>
+                                                    <span class="icon-off">
+                                                        <i class="ri-user-unfollow-line align-bottom me-1"></i> 
+                                                        Unfollow
+                                                    </span>
+                                                </button>
+                                                <a href="/IMSAPP/pages/internshipList.jsf" class="btn btn-primary w-100">
+                                                    Check Internship 
+                                                    <i class="ri-arrow-right-line align-bottom"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </ui:repeat>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ui:include src="/component/footer.xhtml" />
+            </div>
+        </div>
+
+        <!--start back-to-top-->
+        <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
+            <i class="ri-arrow-up-line"></i>
+        </button>
+        <!--end back-to-top-->
+
+        <!--preloader-->
+        <div id="preloader">
+            <div id="status">
+                <div class="spinner-border text-primary avatar-sm" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- JAVASCRIPT -->
+        <script src="../assets/js/jquery.js"></script>
+        <script src="../assets/js/main.js"></script>
+        <script src="../assets/js/validate.js"></script>
+
+        <!-- App js -->
+        <script src="../assets/js/app.js"></script>
+
+        <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="../assets/libs/node-waves/waves.min.js"></script>
+        <script src="../assets/libs/feather-icons/feather.min.js"></script>
+        <script src="../assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+        <!-- <script src="../assets/js/plugins.js"></script> -->
+
+        <!-- Sweet Alerts js -->
+        <script src="../assets/sweetalert2/sweet-alert.init.js"></script>
+        <script src="../assets/sweetalert2/sweetalert2.all.js"></script>
+    </h:body>
+    <script>
+            $(document).ready(function () {
+                $(document).on('click', '.viewcompany-list', function () {
+                    const cname = $(this).attr('data-name');
+                    const email = $(this).attr('data-email');
+                    const companyDetails = $(this).attr('data-companyDetails');
+                    const address = $(this).attr('data-address');
+                    const contact = $(this).attr('data-contact');
+
+                    console.log(cname, email, companyDetails, address, contact);
+
+                    $('.overview-companyname').html(cname);
+                    $('.overview-companyaddress').html(address);
+                    $('.overview-industryType').html(companyDetails);
+                    $('.overview-employee').html(Math.floor(Math.random() * (50 - 10 + 1) + 10));
+                    $('.overview-vacancy').html(Math.floor(Math.random() * (30 - 5 + 1) + 5));
+                    $('.overview-website').html("www." + cname.toLowerCase().split(" ").join("").split("'").join("") + ".com");
+                    $('.overview-email').html(email);
+                });
+            });
+    </script>
+
+</html>

@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" lang="en" data-layout="horizontal"
+      data-topbar="light" data-sidebar="dark" data-sidebar-size="" data-sidebar-image="none" data-preloader="enable"
+      data-sidebar-visibility="show" data-layout-style="default" data-bs-theme="light" data-layout-width="fluid"
+      data-layout-position="fixed" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Add Internship | IMS</title>
+        App favicon 
+        <link rel="shortcut icon" href="../assets/images/favicon.ico" />
+        jsvectormap css 
+        <link href="../assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css" />
+        gridjs css 
+        <link rel="stylesheet" href="../assets/libs/gridjs/theme/mermaid.min.css" />
+        Layout config Js 
+        <script src="../assets/js/layout.js"></script>
+        Bootstrap Css 
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        Icons Css 
+        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        App Css
+        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        custom Css
+        <link href="../assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{navigationCDI.checkCompany()}" />
+        </f:metadata>
+        <!--Begin page--> 
+        <div id="layout-wrapper">
+            <ui:include src="/component/header.xhtml">
+                <ui:param name="username" value="#{session.getAttribute('cname')}" />
+                <ui:param name="role" value="Company" />
+                <ui:param name="navItems" value="#{cdb.companynavItems}" />
+            </ui:include>
+            <!--========== App Menu ==========--> 
+            <!--Left Sidebar End--> 
+            <!--Vertical Overlay-->
+            <div class="vertical-overlay"></div>
+            <!--==============================================================--> 
+            <!--Start right Content here--> 
+            <!--==============================================================--> 
+            <div class="main-content">
+                <div class="page-content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-sm-0">Add New Internship</h4>
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">company</a></li>
+                                            <li class="breadcrumb-item active">Add Internship</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end page title--> 
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <h:form id="frm">
+                                        <div class="card-body">
+                                            <div class="row g-4">
+                                                <div class="col-lg-6">
+                                                    <label for="job-title-Input" class="form-label">Internship Title <span class="text-danger">*</span></label>
+                                                    <h:inputText value="#{cdb.internship.title}" styleClass="form-control" />
+                                                </div>
+                                                <div class="col-lg-6 mt-auto justify-content-lg-between">
+                                                    <div class="form-check form-switch form-switch-lg justify-content-md-between" dir="ltr">
+                                                        <h:selectBooleanCheckbox value="#{cdb.internship.stipend}" class="form-check-input" />
+                                                        <label class="form-check-label" for="customSwitchsizelg">Stipend</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div>
+                                                        <label for="description-field" class="form-label">Description <span class="text-danger">*</span></label>
+                                                        <h:inputTextarea value="#{cdb.internship.description}" styleClass="form-control" rows="3" style="resize: none" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div>
+                                                        <label for="last-apply-date-Input" class="form-label">Start Date<span class="text-danger">*</span></label>
+                                                        <p:inputText type="date" class="form-control" value="#{cdb.internship.startDate}" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div>
+                                                        <label for="close-date-Input" class="form-label">End Date <span class="text-danger">*</span></label>
+                                                        <p:inputText type="date" class="form-control" value="#{cdb.internship.endDate}" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="hstack justify-content-end gap-2">
+                                                        <h:commandButton value="Cancel" class="btn btn-danger" />
+                                                        <p:commandButton value="Add Internship" styleClass="bg-primary border-primary" action="#{cdb.insertInternship()}" update="frm" ajax="true" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gy-2 mb-2" id="candidate-list"></div>
+                </div>
+            </div>
+            <ui:include src="/component/footer.xhtml" />
+        </div>
+        <!--start back-to-top-->
+        <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
+            <i class="ri-arrow-up-line"></i>
+        </button>
+        <!--end back-to-top-->
+        <!--preloader-->
+        <div id="preloader">
+            <div id="status">
+                <div class="spinner-border text-primary avatar-sm" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <!--JAVASCRIPT--> 
+        <script src="../assets/js/jquery.js"></script>
+        <script src="../assets/js/main.js"></script>
+        <script src="../assets/js/validate.js"></script>
+        <script src="../assets/js/chatbot.js"></script>
+        <script src="../assets/js/voiceRecognition.js"></script>
+        <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="../assets/libs/node-waves/waves.min.js"></script>
+        <script src="../assets/libs/feather-icons/feather.min.js"></script>
+        <script src="../assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+        <script src="../assets/js/plugins.js"></script> 
+        <!--apexcharts--> 
+        <script src="../assets/libs/apexcharts/apexcharts.min.js"></script>
+        <!--Sweet Alerts js--> 
+        <script src="../assets/sweetalert2/sweet-alert.init.js"></script>
+        <script src="../assets/sweetalert2/sweetalert2.all.js"></script>
+        <!--Vector map-->
+        <script src="../assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
+        <script src="../assets/libs/jsvectormap/maps/world-merc.js"></script>
+        <!--Swiper slider js-->
+        <script src="../assets/libs/swiper/swiper-bundle.min.js"></script>
+        <!--Dashboard init--> 
+        <script src="../assets/js/pages/dashboard-ecommerce.init.js"></script>
+        <!--App js--> 
+        <script src="../assets/js/app.js"></script>
+        <!--prismjs plugin--> 
+        <script src="../assets/libs/prismjs/prism.js"></script>
+    </h:body>
+</html>

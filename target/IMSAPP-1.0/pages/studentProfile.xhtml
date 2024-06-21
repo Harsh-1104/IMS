@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" lang="en" data-layout="horizontal"
+      data-topbar="light" data-sidebar="dark" data-sidebar-size="" data-sidebar-image="none" data-preloader="enable"
+      data-sidebar-visibility="show" data-layout-style="default" data-bs-theme="light" data-layout-width="fluid"
+      data-layout-position="fixed" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Student Profile | IMS</title>
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        </link>
+
+        <!-- jsvectormap css -->
+        <link href="../assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css">
+        </link>
+
+        <!-- gridjs css -->
+        <link rel="stylesheet" href="../assets/libs/gridjs/theme/mermaid.min.css">
+        </link>
+
+        <!-- Layout config Js -->
+        <script src="../assets/js/layout.js"></script>
+        <!-- Bootstrap Css -->
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- Icons Css -->
+        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- App Css-->
+        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- custom Css-->
+        <link href="../assets/css/custom.min.css" rel="stylesheet" type="text/css">
+        </link>
+
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{navigationCDI.checkStudent()}" />
+        </f:metadata>
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+            <ui:include src="/component/header.xhtml">
+                <ui:param name="username" value="#{session.getAttribute('uname')}" />
+                <ui:param name="role" value="Student" />
+                <ui:param name="navItems" value="#{cdb.usernavItems}" />
+            </ui:include>
+            <!-- ========== App Menu ========== -->
+            <!-- Left Sidebar End -->
+            <!-- Vertical Overlay-->
+            <div class="vertical-overlay"></div>
+
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
+                <div class="page-content">
+                    <div class="container-fluid">
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-sm-0">Student Profile</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <h:form id="frm">
+                                        <div class="card-body">
+                                            <div class="row g-4">
+                                                <div class="col-lg-12">
+                                                    <label for="job-title-Input" class="form-label">
+                                                        APIkey <span class="text-danger">*</span>
+                                                    </label>
+                                                    <h:inputText value="#{profile.student.sid != 'null' ? profile.student.sid : ''}" readonly="true" disabled="true" styleClass="form-control" />
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label for="job-title-Input" class="form-label">
+                                                        Name <span class="text-danger">*</span>
+                                                    </label>
+                                                    <h:inputText value="#{profile.student.sname != 'null' ? profile.student.sname : ''}" styleClass="form-control" />
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label for="job-title-Input" class="form-label">
+                                                        Phone <span class="text-danger">*</span>
+                                                    </label>
+                                                    <h:inputText value="#{profile.student.phone != 'null' ? profile.student.phone : ''}" styleClass="form-control" />
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label for="job-title-Input" class="form-label">
+                                                        Email <span class="text-danger">*</span>
+                                                    </label>
+                                                    <h:inputText value="#{profile.student.email != 'null' ? profile.student.email : ''}" styleClass="form-control" />
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label for="job-title-Input" class="form-label">
+                                                        Prefrence <span class="text-danger">*</span>
+                                                    </label>
+                                                    <h:inputText value="#{profile.student.preference != 'null' ? profile.student.preference : ''}" styleClass="form-control" />
+                                                </div>
+                                                
+                                                <div class="col-lg-12">
+                                                    <div class="hstack justify-content-end gap-2">
+                                                        <p:commandButton value="Update" styleClass="bg-primary border-primary fs-14" action="#{cdb.insertInternship()}" update="frm" ajax="true" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ui:include src="/component/footer.xhtml" />
+            </div>
+        </div>
+
+        <!--start back-to-top-->
+        <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
+            <i class="ri-arrow-up-line"></i>
+        </button>
+        <!--end back-to-top-->
+
+        <!--preloader-->
+        <div id="preloader">
+            <div id="status">
+                <div class="spinner-border text-primary avatar-sm" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- JAVASCRIPT -->
+        <script src="../assets/js/jquery.js"></script>
+        <script src="../assets/js/main.js"></script>
+        <script src="../assets/js/validate.js"></script>
+
+        <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="../assets/libs/node-waves/waves.min.js"></script>
+        <script src="../assets/libs/feather-icons/feather.min.js"></script>
+        <script src="../assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+        <!-- <script src="../assets/js/plugins.js"></script> -->
+
+        <!-- apexcharts -->
+        <script src="../assets/libs/apexcharts/apexcharts.min.js"></script>
+
+        <!-- Sweet Alerts js -->
+        <script src="../assets/sweetalert2/sweet-alert.init.js"></script>
+        <script src="../assets/sweetalert2/sweetalert2.all.js"></script>
+
+        <!-- Vector map-->
+        <script src="../assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
+        <script src="../assets/libs/jsvectormap/maps/world-merc.js"></script>
+
+        <!--Swiper slider js-->
+        <script src="../assets/libs/swiper/swiper-bundle.min.js"></script>
+
+        <!-- Dashboard init -->
+        <script src="../assets/js/pages/dashboard-ecommerce.init.js"></script>
+
+        <!-- App js -->
+        <script src="../assets/js/app.js"></script>
+
+        <!-- prismjs plugin -->
+        <script src="../assets/libs/prismjs/prism.js"></script>
+    </h:body>
+</html>

@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta charset="utf-8" />
+        <title>Register | IMS</title>
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        </link>
+
+        <!-- Layout config Js -->
+        <script src="../assets/js/layout.js"></script>
+        <!-- Bootstrap Css -->
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- Icons Css -->
+        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- App Css-->
+        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- custom Css-->
+        <link href="../assets/css/custom.min.css" rel="stylesheet" type="text/css">
+        </link>
+
+    </h:head>
+    <h:body>
+        <!-- auth-page wrapper -->
+        <div class="auth-page-wrapper auth-bg-cover d-flex justify-content-center align-items-center min-vh-100">
+            <div class="bg-overlay"></div>
+            <!-- auth-page content -->
+            <div class="overflow-hidden pt-lg-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card overflow-hidden">
+                                <div class="row g-0">
+                                    <div class="col-lg-6">
+                                        <div class="p-4">
+                                            <a href="/IMSAPP" class="d-block text-center">
+                                                <img src="../assets/images/logo-light.svg"
+                                                     style="height: 30%; width: 30%;"></img>
+                                            </a>
+                                            <h5 class="text-primary text-uppercase mb-1">Register here</h5>
+                                            <div class="mt-3">
+                                                <h:form>
+                                                    <div class="mb-3">
+                                                        <label for="type" class="form-label">
+                                                            User Type 
+                                                            <span 
+                                                                class="text-danger">*</span>
+                                                        </label>
+                                                        <h:selectOneMenu value="#{cdb.roleID}" styleClass="form-select mb-3">
+                                                            <f:selectItem itemValue="0" itemLabel="Register as Student or Company" itemDisabled="true"/>
+                                                            <f:selectItem itemValue="1" itemLabel="Student" />
+                                                            <f:selectItem itemValue="3" itemLabel="Company" />
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        <label for="useremail" class="form-label">Email <span
+                                                                class="text-danger">*</span></label>
+                                                        <h:inputText value="#{cdb.u.email}" styleClass="form-control" id="useremail"></h:inputText>
+                                                        <div class="invalid-feedback">
+                                                            Please enter email
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="password">Password</label>
+                                                        <div class="position-relative auth-pass-inputgroup">
+                                                            <h:inputSecret value="#{cdb.u.password}" styleClass="form-control" id="password"></h:inputSecret>
+                                                            <div class="invalid-feedback">
+                                                                Please enter password
+                                                            </div>
+                                                            <button
+                                                                class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
+                                                                type="button" id="password-addon"><i
+                                                                    class="ri-eye-fill align-middle"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-4">
+                                                        <h:commandButton value="Sign up" action="#{cdb.insertUsertb()}" styleClass="btn btn-primary w-100"></h:commandButton>
+                                                    </div>
+                                                </h:form>
+                                            </div>
+
+                                            <div class="mt-5 text-center">
+                                                <p class="mb-0">Already have an account ?
+                                                    <a href="/IMSAPP/pages/login.jsf"
+                                                       class="fw-semibold text-primary text-decoration-underline">
+                                                        Sign in
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end col -->
+
+                                    <div class="col-lg-6">
+                                        <div class="pt-4 auth-one-bg h-100">
+                                            <div class="bg-overlay opacity-75" id="auth-particles"></div>
+                                            <div
+                                                class="position-relative h-100 d-flex align-items-center justify-content-center">
+                                                <div class="mb-4">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end col -->
+                                </div>
+                                <!-- end row -->
+                            </div>
+                            <!-- end card -->
+                        </div>
+                        <!-- end col -->
+
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end container -->
+            </div>
+            <!-- end auth page content -->
+        </div>
+        <!-- end auth-page-wrapper -->
+
+        <!-- JAVASCRIPT -->
+        <script src="../assets/js/jquery.js"></script>
+        <script src="../assets/js/validate.js"></script>
+        <script src="../assets/js/main.js"></script>
+
+        <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="../assets/libs/node-waves/waves.min.js"></script>
+        <script src="../assets/libs/feather-icons/feather.min.js"></script>
+        <script src="../assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+        <!--<script src="../assets/js/plugins.js"></script>-->
+
+        <!-- particles js -->
+        <script src="../assets/libs/particles.js/particles.js"></script>
+        <!-- particles app js -->
+        <script src="../assets/js/pages/particles.app.js"></script>
+
+        <!-- password-addon init -->
+        <script src="../assets/js/pages/password-addon.init.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                let userType = null;
+                $(document).on('click', '.usertype', function () {
+                    $(this).children().each((index, element) => {
+                        if (element.tagName.toLowerCase() === 'input') {
+                            $(element).prop('checked', true);
+                        }
+                    });
+
+                    $('input[name="usertype"]').each(function () {
+                        if ($(this).is(':checked')) {
+                            $(this).parent().removeClass('text-muted text-primary border-primary border-light bg-light').addClass('text-primary border-primary bg-light');
+                        } else {
+                            $(this).parent().removeClass('text-muted text-primary border-primary border-light bg-light').addClass('text-muted border-light');
+                        }
+                    });
+
+                    userType = $(this).attr('data-id');
+                });
+            });
+        </script>
+    </h:body>
+
+
+
+</html>

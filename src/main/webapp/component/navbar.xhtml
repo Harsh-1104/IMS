@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    <ui:param name="navItems" value="#{navItems}"  />
+    <ul class="navbar-nav" id="navbar-nav">
+        <ui:repeat var="item" value="#{navItems}">
+            <li class="nav-item">
+                <a href="#{item.link}" class="nav-link menu-link">
+                    <i class="#{item.icon}"></i>
+                    <span data-key="t-dashboards">#{item.name}</span>
+                </a>
+            </li>
+        </ui:repeat>
+    </ul>
+</ui:composition>

@@ -1,0 +1,501 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" lang="en" data-layout="horizontal"
+      data-topbar="light" data-sidebar="dark" data-sidebar-size="" data-sidebar-image="none" data-preloader="enable"
+      data-sidebar-visibility="show" data-layout-style="default" data-bs-theme="light" data-layout-width="fluid"
+      data-layout-position="fixed" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Student Dashboard | IMS</title>
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        </link>
+
+        <!-- jsvectormap css -->
+        <link href="../assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css">
+        </link>
+
+        <!-- gridjs css -->
+        <link rel="stylesheet" href="../assets/libs/gridjs/theme/mermaid.min.css">
+        </link>
+
+        <!-- Layout config Js -->
+        <script src="../assets/js/layout.js"></script>
+        <!-- Bootstrap Css -->
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- Icons Css -->
+        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- App Css-->
+        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- custom Css-->
+        <link href="../assets/css/custom.min.css" rel="stylesheet" type="text/css">
+        </link>
+
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{navigationCDI.checkStudent()}" />
+        </f:metadata>
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+            <ui:include src="/component/header.xhtml">
+                <ui:param name="username" value="#{session.getAttribute('uname')}" />
+                <ui:param name="role" value="Student" />
+                <ui:param name="navItems" value="#{cdb.usernavItems}" />
+            </ui:include>
+            <!-- ========== App Menu ========== -->
+            <!-- Left Sidebar End -->
+            <!-- Vertical Overlay-->
+            <div class="vertical-overlay"></div>
+
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
+                <div class="page-content">
+                    <div class="container-fluid">
+                        <div class="row ms-3">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar-sm flex-shrink-0">
+                                                        <span
+                                                            class="avatar-title bg-soft-primary text-primary rounded-circle fs-3">
+                                                            <i class=" bx bx-up-arrow-circle align-middle text-primary"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="flex-grow-1 overflow-hidden ms-3">
+                                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-2">
+                                                            Applied
+                                                        </p>
+                                                        <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                                                            <span class="counter-value text-primary" data-target="#{dashboard.totalAppliedInternship}">0</span>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar-sm flex-shrink-0">
+                                                        <span
+                                                            class="avatar-title bg-soft-success text-primary rounded-circle fs-3">
+                                                            <i class="ri-checkbox-circle-line align-middle text-success"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="flex-grow-1 overflow-hidden ms-3">
+                                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-2">
+                                                            Selected
+                                                        </p>
+                                                        <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                                                            <span class="counter-value text-success" data-target="#{dashboard.totalApprovedInternship}">0</span>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar-sm flex-shrink-0">
+                                                        <span
+                                                            class="avatar-title bg-soft-danger text-primary rounded-circle fs-3">
+                                                            <i class="ri-close-circle-line align-middle text-danger"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="flex-grow-1 overflow-hidden ms-3">
+                                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-2">
+                                                            Rejected
+                                                        </p>
+                                                        <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                                                            <span class="counter-value text-danger" data-target="#{dashboard.totalRejectdInternship}">0</span>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar-sm flex-shrink-0">
+                                                        <span
+                                                            class="avatar-title bg-soft-warning text-primary rounded-circle fs-3">
+                                                            <i class="ri-error-warning-line align-middle text-warning"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="flex-grow-1 overflow-hidden ms-3">
+                                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-2">
+                                                            Pending
+                                                        </p>
+                                                        <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                                                            <span class="counter-value text-warning" data-target="#{dashboard.totalPendingInternship}">0</span>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ms-3">
+                            <div class="col-lg-6">
+                                <div class="card card-height-100">
+                                    <div class="card-header border-0 align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">Applications Statistic</h4>
+                                        <div>
+                                            <button type="button" class="btn btn-soft-secondary btn-sm">
+                                                ALL
+                                            </button>
+                                            <button type="button" class="btn btn-soft-secondary btn-sm">
+                                                1M
+                                            </button>
+                                            <button type="button" class="btn btn-soft-secondary btn-sm">
+                                                6M
+                                            </button>
+                                            <button type="button" class="btn btn-soft-primary btn-sm">
+                                                1Y
+                                            </button>
+                                        </div>
+                                    </div><!-- end card header -->
+                                    <div class="card-body p-0 pb-2">
+                                        <div class="w-100">
+                                            <div id="line_chart_dashed"
+                                                 data-colors='["--vz-success", "--vz-info", "--vz-primary"]'
+                                                 class="apex-charts" dir="ltr"></div>
+                                        </div>
+                                    </div><!-- end card body -->
+                                </div><!-- end card -->
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card card-height-100">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">Featured Companies</h4>
+                                        <div class="flex-shrink-0">
+                                            <a href="#!" class="btn btn-soft-primary btn-sm">View All Companies <i
+                                                    class="ri-arrow-right-line align-bottom"></i></a>
+                                        </div>
+                                    </div><!-- end card header -->
+
+                                    <div class="card-body">
+                                        <div class="table-responsive table-card">
+                                            <table class="table table-centered table-hover align-middle table-nowrap mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="avatar-xs me-2 flex-shrink-0">
+                                                                    <div class="avatar-title bg-soft-secondary rounded">
+                                                                        <!-- <i
+                                                                            class="ri-building-2-fill align-middle text-primary fs-22 me-2"></i> -->
+                                                                        <i
+                                                                            class="mdi mdi-alpha-k align-middle text-primary fs-22"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <h6 class="mb-0">Kent's</h6>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <i class="ri-map-pin-2-line text-primary me-1 align-bottom"></i>
+                                                            Cullera, Spain
+                                                        </td>
+                                                        <td>
+                                                            <ul class="list-inline mb-0">
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-secondary"><i
+                                                                            class="ri-facebook-fill"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-danger"><i
+                                                                            class="ri-mail-line"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-primary"><i
+                                                                            class="ri-global-line"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-info"><i
+                                                                            class="ri-twitter-line"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#!" class="btn btn-link btn-sm">View More <i
+                                                                    class="ri-arrow-right-line align-bottom"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="avatar-xs me-2 flex-shrink-0">
+                                                                    <div class="avatar-title bg-soft-warning rounded">
+                                                                        <img src="assets/images/companies/img-3.png" alt=""
+                                                                             height="16"></img>
+                                                                    </div>
+                                                                </div>
+                                                                <h6 class="mb-0">Syntyce Solutions</h6>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <i class="ri-map-pin-2-line text-primary me-1 align-bottom"></i>
+                                                            Mughairah, UAE
+                                                        </td>
+                                                        <td>
+                                                            <ul class="list-inline mb-0">
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-secondary"><i
+                                                                            class="ri-facebook-fill"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-danger"><i
+                                                                            class="ri-mail-line"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-primary"><i
+                                                                            class="ri-global-line"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-info"><i
+                                                                            class="ri-twitter-line"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#!" class="btn btn-link btn-sm">View More <i
+                                                                    class="ri-arrow-right-line align-bottom"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="avatar-xs me-2 flex-shrink-0">
+                                                                    <div class="avatar-title bg-soft-primary rounded">
+                                                                        <img src="assets/images/companies/img-2.png" alt=""
+                                                                             height="16"></img>
+                                                                    </div>
+                                                                </div>
+                                                                <h6 class="mb-0">Moetic Fashion</h6>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <i class="ri-map-pin-2-line text-primary me-1 align-bottom"></i>
+                                                            Mughairah, UAE
+                                                        </td>
+                                                        <td>
+                                                            <ul class="list-inline mb-0">
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-secondary"><i
+                                                                            class="ri-facebook-fill"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-danger"><i
+                                                                            class="ri-mail-line"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-primary"><i
+                                                                            class="ri-global-line"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-info"><i
+                                                                            class="ri-twitter-line"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#!" class="btn btn-link btn-sm">View More <i
+                                                                    class="ri-arrow-right-line align-bottom"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="avatar-xs me-2 flex-shrink-0">
+                                                                    <div class="avatar-title bg-soft-danger rounded">
+                                                                        <img src="assets/images/companies/img-4.png" alt=""
+                                                                             height="16"></img>
+                                                                    </div>
+                                                                </div>
+                                                                <h6 class="mb-0">Meta4Systems</h6>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <i class="ri-map-pin-2-line text-primary me-1 align-bottom"></i>
+                                                            Germany
+                                                        </td>
+                                                        <td>
+                                                            <ul class="list-inline mb-0">
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-secondary"><i
+                                                                            class="ri-facebook-fill"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-danger"><i
+                                                                            class="ri-mail-line"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-primary"><i
+                                                                            class="ri-global-line"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-info"><i
+                                                                            class="ri-twitter-line"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#!" class="btn btn-link btn-sm">View More <i
+                                                                    class="ri-arrow-right-line align-bottom"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="avatar-xs me-2 flex-shrink-0">
+                                                                    <div class="avatar-title bg-soft-danger rounded">
+                                                                        <img src="assets/images/companies/img-5.png" alt=""
+                                                                             height="16"></img>
+                                                                    </div>
+                                                                </div>
+                                                                <h6 class="mb-0">Themesbrand</h6>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <i class="ri-map-pin-2-line text-primary me-1 align-bottom"></i>
+                                                            Limestone, US
+                                                        </td>
+                                                        <td>
+                                                            <ul class="list-inline mb-0">
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-secondary"><i
+                                                                            class="ri-facebook-fill"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-danger"><i
+                                                                            class="ri-mail-line"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-primary"><i
+                                                                            class="ri-global-line"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a href="#!" class="link-info"><i
+                                                                            class="ri-twitter-line"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#!" class="btn btn-link btn-sm">View More <i
+                                                                    class="ri-arrow-right-line align-bottom"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="align-items-center mt-4 pt-2 justify-content-between d-flex">
+                                            <div class="flex-shrink-0">
+                                                <div class="text-muted">
+                                                    Showing <span class="fw-semibold">5</span> of <span
+                                                        class="fw-semibold">25</span> Results
+                                                </div>
+                                            </div>
+                                            <ul class="pagination pagination-separated pagination-sm mb-0">
+                                                <li class="page-item disabled">
+                                                    <a href="#" class="page-link">←</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="#" class="page-link">1</a>
+                                                </li>
+                                                <li class="page-item active">
+                                                    <a href="#" class="page-link">2</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="#" class="page-link">3</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="#" class="page-link">→</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div> <!-- .card-->
+                            </div>
+                        </div>
+                    </div>
+                    <ui:include src="/component/footer.xhtml" />
+                </div>
+            </div>
+        </div>
+
+        <!--start back-to-top-->
+        <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
+            <i class="ri-arrow-up-line"></i>
+        </button>
+        <!--end back-to-top-->
+
+        <!--preloader-->
+        <div id="preloader">
+            <div id="status">
+                <div class="spinner-border text-primary avatar-sm" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- JAVASCRIPT -->
+        <script src="../assets/js/jquery.js"></script>
+        <script src="../assets/js/main.js"></script>
+        <script src="../assets/js/validate.js"></script>
+
+        <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="../assets/libs/node-waves/waves.min.js"></script>
+        <script src="../assets/libs/feather-icons/feather.min.js"></script>
+        <script src="../assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+        <!-- <script src="../assets/js/plugins.js"></script> -->
+
+        <!-- apexcharts -->
+        <script src="../assets/libs/apexcharts/apexcharts.min.js"></script>
+
+        <!-- Sweet Alerts js -->
+        <script src="../assets/sweetalert2/sweet-alert.init.js"></script>
+        <script src="../assets/sweetalert2/sweetalert2.all.js"></script>
+
+        <!-- Vector map-->
+        <script src="../assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
+        <script src="../assets/libs/jsvectormap/maps/world-merc.js"></script>
+
+
+        <!-- apexcharts -->
+        <script src="../assets/libs/apexcharts/apexcharts.min.js"></script>
+
+        <!-- Vector map-->
+        <script src="../assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
+        <script src="../assets/libs/jsvectormap/maps/world-merc.js"></script>
+
+        <!-- gridjs js -->
+        <script src="../assets/libs/gridjs/gridjs.umd.js"></script>
+
+        <!-- Dashboard init -->
+        <script src="../assets/js/pages/dashboard-job.init.js"></script>
+
+        <!-- App js -->
+        <script src="../assets/js/app.js"></script>
+
+        <!-- prismjs plugin -->
+        <script src="../assets/libs/prismjs/prism.js"></script>
+    </h:body>
+
+</html>

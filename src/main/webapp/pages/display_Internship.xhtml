@@ -1,0 +1,282 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" lang="en" data-layout="horizontal"
+      data-topbar="light" data-sidebar="dark" data-sidebar-size="" data-sidebar-image="none" data-preloader="enable"
+      data-sidebar-visibility="show" data-layout-style="default" data-bs-theme="light" data-layout-width="fluid"
+      data-layout-position="fixed" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Internship List | IMS</title>
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        </link>
+
+        <!-- jsvectormap css -->
+        <link href="../assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css">
+        </link>
+
+        <!-- gridjs css -->
+        <link rel="stylesheet" href="../assets/libs/gridjs/theme/mermaid.min.css">
+        </link>
+
+        <!-- Layout config Js -->
+        <script src="../assets/js/layout.js"></script>
+        <!-- Bootstrap Css -->
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- Icons Css -->
+        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- App Css-->
+        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- custom Css-->
+        <link href="../assets/css/custom.min.css" rel="stylesheet" type="text/css">
+        </link>
+
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{navigationCDI.checkCompany()}" />
+        </f:metadata>
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+            <ui:include src="/component/header.xhtml">
+                <ui:param name="username" value="#{session.getAttribute('cname')}" />
+                <ui:param name="role" value="Company" />
+                <ui:param name="navItems" value="#{cdb.companynavItems}" />
+            </ui:include>
+            <!-- ========== App Menu ========== -->
+            <!-- Left Sidebar End -->
+            <!-- Vertical Overlay-->
+            <div class="vertical-overlay"></div>
+
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
+                <div class="page-content">
+                    <div class="container-fluid">
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-sm-0">Internship List</h4>
+                                </div>
+                                <h:form>
+                                    <a href="/IMSAPP/pages/Add_Internship.jsf" class="btn btn-primary justify-content-end">+ Add Internship</a>
+                                </h:form>
+                            </div>
+                        </div>
+
+                        <div class="row m-auto">
+                            <div class="col-lg-12">
+                                <h:panelGroup layout="grid" styleClass="row job-list-row">
+                                    <ui:repeat value="#{cdb.internshiplistbycid}" var="internship">
+                                        <div class="col-lg-3 col-md-6 mt-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <button type="button" class="btn btn-icon btn-soft-primary float-end"
+                                                            data-bs-toggle="button" aria-pressed="true" fdprocessedid="4xmlq">
+                                                        <i class="mdi mdi-cards-heart fs-16"></i>
+                                                    </button>
+                                                    <div class="mb-4">
+                                                        <a href="#!">
+                                                            <h5>#{internship.title}</h5>
+                                                        </a>
+                                                        <p class="text-muted">#{internship.description}</p>
+                                                    </div>
+                                                    <div class="d-flex gap-4 mb-3">
+                                                        <div>
+                                                            <i class="ri-time-line text-primary me-1 align-bottom"></i>
+                                                            <span data-sdate="" data-edate="" class="text text-muted" id="duration">#{internship.startDate} - #{internship.endDate}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="hstack gap-2">
+                                                        <span class="badge bg-warning-subtle text-warning">
+                                                            Stipend :
+                                                        </span>
+                                                        <span class="badge bg-primary-subtle text-primary" >
+                                                            #{internship.stipend}
+                                                        </span>
+                                                    </div>
+                                                    <div class="mt-4 hstack gap-2">
+                                                        <h:form>
+                                                            <h:commandButton value="Delete" action="#{cdb.deleteInternship(internship.iid)}" styleClass="btn btn-soft-danger w-100"></h:commandButton>
+                                                        </h:form>
+                                                        <button class="btn btn-soft-info w-100" data-bs-toggle="modal" data-bs-target="#addModal">
+                                                            Update
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ui:repeat>
+                                </h:panelGroup>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header bg-light p-3">
+                                <h5 class="modal-title" id="modallbl">Update Internship</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                        id="close-adduser-modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="mb-3 col-6">
+                                        <label for="uname" class="form-label">
+                                            Full Name
+                                            <span class="text-danger">*</span>
+                                            <span class="text-danger" id="err_uname"></span>
+                                        </label>
+                                        <input type="text" class="form-control required" id="uname" data-type="name" />
+                                    </div>
+                                    <div class="mb-3 col-6">
+                                        <label for="phone" class="form-label">
+                                            Phone Nuumebr
+                                            <span class="text-danger">*</span>
+                                            <span class="text-danger" id="err_phone"></span>
+                                        </label>
+                                        <input type="text" class="form-control required" id="phone" data-type="number" />
+                                    </div>
+                                    <div class="mb-3 col-6">
+                                        <label for="email" class="form-label">
+                                            Email
+                                            <span class="text-danger">*</span>
+                                            <span class="text-danger" id="err_email"></span>
+                                        </label>
+                                        <input type="text" class="form-control required" id="email" data-type="email" />
+                                    </div>
+                                    <div class="mb-3 col-6">
+                                        <label for="password" class="form-label">
+                                            Password
+                                            <span class="text-danger">*</span>
+                                            <span class="text-danger" id="err_password"></span>
+                                        </label>
+                                        <div class="position-relative auth-pass-inputgroup">
+                                            <input type="password"
+                                                   class="form-control pe-5 required password-input-hide-show" name="password"
+                                                   placeholder="Enter password" id="password" data-type="password" />
+                                            <button
+                                                class="btn btn-link position-absolute end-0 top-0
+                                                text-decoration-none text-muted password-addon"
+                                                type="button" id="password-addon">
+                                                <i class="ri-eye-fill align-middle"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-4">
+                                        <label for="city" class="form-label">
+                                            City
+                                            <span class="text-danger">*</span>
+                                            <span class="text-danger" id="err_city"></span>
+                                        </label>
+                                        <input type="text" class="form-control required" id="city" data-type="name" />
+                                    </div>
+                                    <div class="mb-3 col-4">
+                                        <label for="state" class="form-label">
+                                            State
+                                            <span class="text-danger">*</span>
+                                            <span class="text-danger" id="err_state"></span>
+                                        </label>
+                                        <input type="text" class="form-control required" id="state" data-type="name" />
+                                    </div>
+                                    <div class="mb-3 col-4">
+                                        <label for="country" class="form-label">
+                                            Country
+                                            <span class="text-danger">*</span>
+                                            <span class="text-danger" id="err_country"></span>
+                                        </label>
+                                        <input type="text" class="form-control required" id="country" data-type="name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="hstack gap-2 justify-content-end">
+                                    <button class="btn btn-primary" id="addUserbtn">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ui:include src="/component/footer.xhtml" />
+            </div>
+        </div>
+
+        <!--start back-to-top-->
+        <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
+            <i class="ri-arrow-up-line"></i>
+        </button>
+        <!--end back-to-top-->
+
+        <!--preloader-->
+        <div id="preloader">
+            <div id="status">
+                <div class="spinner-border text-primary avatar-sm" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- JAVASCRIPT -->
+        <script src="../assets/js/jquery.js"></script>
+        <script src="../assets/js/main.js"></script>
+        <script src="../assets/js/validate.js"></script>
+        <script src="../assets/js/chatbot.js"></script>
+        <script src="../assets/js/voiceRecognition.js"></script>
+
+        <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="../assets/libs/node-waves/waves.min.js"></script>
+        <script src="../assets/libs/feather-icons/feather.min.js"></script>
+        <script src="../assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+        <!-- <script src="../assets/js/plugins.js"></script> -->
+
+        <!-- apexcharts -->
+        <script src="../assets/libs/apexcharts/apexcharts.min.js"></script>
+
+        <!-- Sweet Alerts js -->
+        <script src="../assets/sweetalert2/sweet-alert.init.js"></script>
+        <script src="../assets/sweetalert2/sweetalert2.all.js"></script>
+
+        <!-- Vector map-->
+        <script src="../assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
+        <script src="../assets/libs/jsvectormap/maps/world-merc.js"></script>
+
+        <!--Swiper slider js-->
+        <script src="../assets/libs/swiper/swiper-bundle.min.js"></script>
+
+        <!-- Dashboard init -->
+        <script src="../assets/js/pages/dashboard-ecommerce.init.js"></script>
+
+        <!-- App js -->
+        <script src="../assets/js/app.js"></script>
+
+        <!-- prismjs plugin -->
+        <script src="../assets/libs/prismjs/prism.js"></script>
+    </h:body>
+    <script>
+            $(document).ready(function () {
+                const sd = $('#duration').attr('data-sdate');
+                const ed = $('#duration').attr('data-edate');
+
+                const date1 = new Date(sd);
+                const date2 = new Date(ed);
+
+                console.log(date1, date2); // Output: 5
+                const yearDiff = date2.getFullYear() - date1.getFullYear();
+                const monthDiff = date2.getMonth() - date1.getMonth();
+
+                const totalMonths = (yearDiff * 12) + monthDiff;
+
+                console.log(totalMonths); // Output: 5
+            });
+    </script>
+
+</html>

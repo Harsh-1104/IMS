@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <span>Copyright </span>
+                    <span>&#169;</span>
+                    <span id="currentYear"></span>
+                    <span> | </span>
+                    <span class="text-primary fw-bold">IMS</span>
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end d-none d-sm-block">
+                        Developed by <span class="text-primary fw-bold">H &#38; P</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer> 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("currentYear").textContent = new Date().getFullYear();
+        });
+    </script>
+</ui:composition>

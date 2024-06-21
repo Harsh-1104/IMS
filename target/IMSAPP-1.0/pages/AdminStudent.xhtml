@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" lang="en" data-layout="horizontal"
+      data-topbar="light" data-sidebar="dark" data-sidebar-size="" data-sidebar-image="none" data-preloader="enable"
+      data-sidebar-visibility="show" data-layout-style="default" data-bs-theme="light" data-layout-width="fluid"
+      data-layout-position="fixed" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Student List | IMS</title>
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        </link>
+
+        <!-- jsvectormap css -->
+        <link href="../assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css">
+        </link>
+
+        <!-- gridjs css -->
+        <link rel="stylesheet" href="../assets/libs/gridjs/theme/mermaid.min.css">
+        </link>
+
+        <!-- Layout config Js -->
+        <script src="../assets/js/layout.js"></script>
+        <!-- Bootstrap Css -->
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- Icons Css -->
+        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- App Css-->
+        <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <!-- custom Css-->
+        <link href="../assets/css/custom.min.css" rel="stylesheet" type="text/css">
+        </link>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        </link>
+
+
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{navigationCDI.checkAdmin()}"/>
+        </f:metadata>
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+            <ui:include src="/component/header.xhtml">
+                <ui:param name="username" value="#{session.getAttribute('aname')}" />
+                <ui:param name="role" value="Admin" />
+            </ui:include>
+            <!-- ========== App Menu ========== -->
+            <div class="app-menu navbar-menu">
+                <div id="scrollbar">
+                    <div class="container-fluid">
+
+                        <div id="two-column-menu">
+                        </div>
+                        <ui:include src="/component/navbar.xhtml">
+                            <ui:param name="navItems" value="#{cdb.adminnavItems}" />
+                        </ui:include>
+                    </div>
+                    <!-- Sidebar -->
+                </div>
+
+                <div class="sidebar-background"></div>
+            </div>
+            <!-- Left Sidebar End -->
+            <!-- Vertical Overlay-->
+            <div class="vertical-overlay"></div>
+
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
+                <div class="page-content">
+                    <div class="container-fluid">
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-sm-0">Student List</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <h:panelGroup layout="grid" styleClass="row gy-2 mb-2">
+                            <ui:repeat value="#{cdb.studentlist}" var="student">
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <!-- Updated header icon and text -->
+                                                <div class="avatar-sm">
+                                                    <div class="avatar-title bg-light rounded-circle">
+                                                        <i class="bx bx-user-circle text-primary fs-2"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="ms-3">
+                                                    <h5 class="card-title text-primary mb-1">#{student.email}</h5>
+                                                    <p class="text-muted mb-0">Student Profile</p>
+                                                </div>
+                                            </div>
+                                            <hr class="my-2"></hr>
+                                            <div class="mb-3">
+                                                <p class="card-text mb-1"><i class="mdi mdi-phone fs-5 text-muted me-1"></i> #{student.phone}</p>
+                                                <p class="card-text mb-1"><i class="mdi mdi-star fs-5 text-muted me-1"></i> #{student.preference}</p>
+                                            </div>
+                                            <h:form>
+                                                <h:commandButton value="Delete" styleClass="btn btn-soft-danger btn-sm w-100" action="#{cdb.AdmindeleteUser(student.sid)}" />
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </ui:repeat>
+                        </h:panelGroup>
+                    </div>
+                </div>
+
+                <ui:include src="/component/footer.xhtml" />
+            </div>
+        </div>
+
+        <!--start back-to-top-->
+        <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
+            <i class="ri-arrow-up-line"></i>
+        </button>
+        <!--end back-to-top-->
+
+        <!--preloader-->
+        <div id="preloader">
+            <div id="status">
+                <div class="spinner-border text-primary avatar-sm" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- JAVASCRIPT -->
+        <script src="../assets/js/jquery.js"></script>
+        <script src="../assets/js/main.js"></script>
+        <script src="../assets/js/validate.js"></script>
+        <script src="../assets/js/chatbot.js"></script>
+        <script src="../assets/js/voiceRecognition.js"></script>
+
+        <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="../assets/libs/node-waves/waves.min.js"></script>
+        <script src="../assets/libs/feather-icons/feather.min.js"></script>
+        <script src="../assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+        <!-- <script src="../assets/js/plugins.js"></script> -->
+
+        <!-- apexcharts -->
+        <script src="../assets/libs/apexcharts/apexcharts.min.js"></script>
+
+        <!-- Sweet Alerts js -->
+        <script src="../assets/sweetalert2/sweet-alert.init.js"></script>
+        <script src="../assets/sweetalert2/sweetalert2.all.js"></script>
+
+        <!-- Vector map-->
+        <script src="../assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
+        <script src="../assets/libs/jsvectormap/maps/world-merc.js"></script>
+
+        <!--Swiper slider js-->
+        <script src="../assets/libs/swiper/swiper-bundle.min.js"></script>
+
+        <!-- Dashboard init -->
+        <script src="../assets/js/pages/dashboard-ecommerce.init.js"></script>
+
+        <!-- App js -->
+        <script src="../assets/js/app.js"></script>
+
+        <!-- prismjs plugin -->
+        <script src="../assets/libs/prismjs/prism.js"></script>
+    </h:body>
+    <script>
+            $(document).ready(function () {
+                $(document).on('click', '.viewcompany-list', function () {
+                    const cname = $(this).attr('data-name');
+                    const email = $(this).attr('data-email');
+                    const companyDetails = $(this).attr('data-companyDetails');
+                    const address = $(this).attr('data-address');
+                    const contact = $(this).attr('data-contact');
+
+                    console.log(cname, email, companyDetails, address, contact);
+
+                    $('.overview-companyname').html(cname);
+                    $('.overview-companyaddress').html(address);
+                    $('.overview-industryType').html(companyDetails);
+                    $('.overview-employee').html(Math.floor(Math.random() * (50 - 10 + 1) + 10));
+                    $('.overview-vacancy').html(Math.floor(Math.random() * (30 - 5 + 1) + 5));
+                    $('.overview-website').html("www." + cname.toLowerCase().split(" ").join("").split("'").join("") + ".com");
+                    $('.overview-email').html(email);
+                });
+            });
+    </script>
+
+</html>
